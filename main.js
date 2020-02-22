@@ -1,7 +1,7 @@
 const utils = require('./src/utils');
 const geocode = require('./src/geocode');
 const xml = require('./src/xml');
-const { DEBUG } = require('./config');
+const { DEBUG, TIMEOUT } = require('./config');
 
 main();
 
@@ -11,10 +11,11 @@ async function main() {
     if (!files) {
         throw new Error('No input file found! Check the docs.')
     }
-    if (files.length > 1) {
+    const actualFiles = files.filter(f => f !== '.gitkeep'); // TODO: handle this more gracefully
+    if (actualFiles.length > 1) {
         throw new Error('Currently this only works for one input file');
     }
-    const [ fileName ] = files;
+    const [ fileName ] = actualFiles;
 
     const file = await utils.readInputFile(fileName);
     const parseResult = await xml.parse(file);
@@ -33,7 +34,7 @@ async function main() {
     ensureEveryAugmentedPlaceNowHasCoords(augmentedPlaces);
 
     // if all is good, write back places to json representation of xml
-    parseResult.kml.Document.Folder.Placemark = [withOutCoords, withCoords];
+    parseResult.kml.Document.Folder.Placemark = [...withOutCoords, ...withCoords];
     const resultXml = xml.build(parseResult); // string
     DEBUG && utils.printXml(resultXml);
     await utils.writeOutputFile(fileName, resultXml);
