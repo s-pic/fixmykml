@@ -56,7 +56,7 @@ module.exports = {
         await fs.writeFile(path, file, options);
     },
     getOutputFilePath: (fileName) => getFullPath(
-        getFullPath(fileName)
+        getFullPath(fileName, '/output')
     ),
     logSuccessBanner: () => {
         console.log(`
