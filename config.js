@@ -1,3 +1,4 @@
 module.exports = {
-    DEBUG: false
+    DEBUG: false,
+    TIMEOUT: 500 // mili-seconds
 };

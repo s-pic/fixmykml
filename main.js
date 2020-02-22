@@ -66,7 +66,7 @@ async function geocodePlaces(places) {
         } else {
             DEBUG && console.log(`got no coords for address ${place}`)
         }
-        await utils.sleep(2000); // add a little delay to prevent breaking any license agreements
+        await utils.sleep(TIMEOUT || 2000); // add a little delay to prevent breaking any license agreements
     });
     return placesToGeocode
 }
