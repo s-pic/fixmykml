@@ -7,7 +7,7 @@ const DATA_DIR_PATH = path.join(__dirname, '..', '/data');
 const formatJson = json => JSON.stringify(json, null, '\t');
 
 const getFullPath = relativePath => path.join(DATA_DIR_PATH, relativePath);
-const getRelativOutputPath = fileName => path.join('/output', fileName);
+const getRelativeOutputPath = fileName => path.join('/output', fileName);
 
 module.exports = {
     readInputDir: fs.readdir(getFullPath('input')),
@@ -50,7 +50,7 @@ module.exports = {
     writeOutputFile: async (fileName, file) => {
 
         const path = getFullPath(
-            getRelativOutputPath(fileName)
+            getRelativeOutputPath(fileName)
         );
         const options = {encoding:'utf8', flag:'w'};
         await fs.writeFile(path, file, options);
