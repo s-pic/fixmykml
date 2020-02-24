@@ -2,4 +2,6 @@
 .env
 /node_modules/
 /data/output/*
+!/data/output/.gitkeep
 /data/input/*
+!/data/input/.gitkeep
